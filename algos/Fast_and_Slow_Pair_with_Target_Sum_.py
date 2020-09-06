@@ -1,39 +1,40 @@
 # Problem Statement #
-# Given an array of positive numbers and a positive number k, find the
-# maximum sum of any contiguous subarray of size k.
+# Given an array of sorted numbers and a target sum, find a pair in the
+# array whose sum is equal to the given target.
+
+# Write a function to return the indices of the two numbers (i.e. the
+# pair) such that they add up to the given target.
 
 # Example 1:
 
-# Input: [2, 1, 5, 1, 3, 2], k=3
-# Output: 9
-# Explanation: Subarray with maximum sum is [5, 1, 3].
+# Input: [1, 2, 3, 4, 6], target=6
+# Output: [1, 3]
+# Explanation: The numbers at index 1 and 3 add up to 6: 2+4=6
 # Example 2:
 
-# Input: [2, 3, 4, 1, 5], k=2
-# Output: 7
-# Explanation: Subarray with maximum sum is [3, 4].
-#
+# Input: [2, 5, 9, 11], target=11
+# Output: [0, 2]
+# Explanation: The numbers at index 0 and 2 add up to 11: 2+9=11
 # ----- end ------
+# https://www.educative.io/courses/grokking-the-coding-interview/xog6q15W9GP
 
-# https://www.educative.io/courses/grokking-the-coding-interview/JPKr0kqLGNP
+def pair_with_targetsum(arr, target_sum):
+    left, right = 0, len(arr) - 1
+    while(left < right):
+        current_sum = arr[left] + arr[right]
+        if current_sum == target_sum:
+            return [left, right]
 
-def max_sub_array_of_size_k(k, arr):
-    max_sum = 0
-    window_sum = 0
-
-    for i in range(len(arr) - k + 1):
-        window_sum = 0
-        for j in range(i, i + k):
-            window_sum += arr[j]
-        max_sum = max(max_sum, window_sum)
-    return max_sum
+        if target_sum > current_sum:
+            left += 1  # we need a pair with a bigger sum
+        else:
+            right -= 1  # we need a pair with a smaller sum
+    return [-1, -1]
 
 
 def main():
-    print("Maximum sum of a subarray of size K: " +
-          str(max_sub_array_of_size_k(3, [2, 1, 5, 1, 3, 2])))
-    print("Maximum sum of a subarray of size K: " +
-          str(max_sub_array_of_size_k(2, [2, 3, 4, 1, 5])))
+    print(pair_with_targetsum([1, 2, 3, 4, 6], 6))
+    print(pair_with_targetsum([2, 5, 9, 11], 11))
 
 
 main()
