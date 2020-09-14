@@ -10,7 +10,7 @@
 
 # Input: 7, 9, 7
 # Output: 9
-
+# ----- end ------
 def find_single_number(arr):
     num = 0
     for i in arr:
